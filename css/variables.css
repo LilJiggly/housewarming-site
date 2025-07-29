@@ -1,0 +1,38 @@
+.max-8 {
+  max-width: 856px;
+}
+
+.max-6 {
+  max-width: 636px;
+}
+
+.flex-row {
+  display: flex;
+}
+
+.gap-5 {
+  gap: 0.5rem;
+}
+
+.gap-1 {
+  gap: 1rem !important;
+}
+
+.btn {
+  display: inline-block;
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  height: 100%;
+  cursor: pointer;
+}
+
+.btn-pr {
+  background-color: blueviolet;
+}
+
+.btn-pr:hover {
+  opacity: 0.9;
+}
