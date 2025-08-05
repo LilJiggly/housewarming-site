@@ -32,13 +32,39 @@ h4 {
 
 h1 {
   font-size: 6rem;
-  color: white;
+  color: lavenderblush;
   margin-bottom: 0;
+  text-transform: uppercase;
+  transition: 0.3s ease;
+  animation: h1 infinite 5s ease;
+}
+
+@keyframes h1 {
+  0% {
+    transform: rotate(3deg);
+  }
+  25% {
+    transform: rotate(-3deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
+  75% {
+    transform: rotate(-3deg);
+  }
+  100% {
+    transform: rotate(3deg);
+  }
 }
 
 h2 {
   font-size: 4rem;
   margin-bottom: -32px;
+  transition: 0.3s ease;
+}
+
+h2:hover {
+  text-shadow: purple 4px 4px;
 }
 
 header h2 {
