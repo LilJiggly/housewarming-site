@@ -1,8 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 @font-face {
   font-family: "Baby Doll";
-  src: url("../fonts/Baby_Doll.woff2") format("woff2"),
-    url("../fonts/Baby_Doll.ttf") format("truetype"),
+  src: url("../fonts/Baby_Doll.ttf") format("truetype"),
     url("../fonts/Baby_Doll.otf") format("opentype");
   font-weight: normal;
   font-style: normal;
@@ -87,7 +86,7 @@ h3 {
     margin-bottom: 0;
   }
   h2 {
-    font-size: 2rem;
+    font-size: 1.5rem;
     margin-bottom: -16px;
   }
 }
