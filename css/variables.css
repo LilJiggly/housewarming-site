@@ -1,9 +1,28 @@
+:root {
+  /* --color-main: #401928;
+  --color-secondary: #97bad0;
+  --color-white: white;
+  --text-color-main: rgb(255, 221, 226);
+  --text-color-secondary: #401928; */
+  --color-main: #cec2ff;
+  --color-secondary: #2c6e49;
+  --color-tertiary: #133c25;
+  --color-white: white;
+  --text-color-main: #410053;
+  --text-color-secondary: #e2dbff;
+  --card-color: #99d6b4;
+}
+
 .max-8 {
   max-width: 856px;
 }
 
 .max-6 {
   max-width: 636px;
+}
+
+.max-4 {
+  max-width: 416px;
 }
 
 .flex-row {
@@ -18,11 +37,15 @@
   gap: 1rem !important;
 }
 
+nav .btn {
+  padding: 0.5rem 1rem;
+}
+
 .btn {
   display: inline-block;
-  color: white;
+  color: var(--text-color-main);
   text-decoration: none;
-  padding: 0.5rem 1rem;
+  padding: 1rem 1.5rem;
   border-radius: 0.5rem;
   border: none;
   height: 100%;
@@ -30,9 +53,25 @@
 }
 
 .btn-pr {
-  background-color: blueviolet;
+  background-color: var(--color-main);
 }
 
 .btn-pr:hover {
   opacity: 0.9;
+}
+
+.btn-sc {
+  background-color: var(--color-main);
+  transition: 0.3s ease;
+}
+
+.btn-sc:hover {
+  opacity: 0.7;
+  color: var(--text-color-secondary);
+  background-color: var(--text-color-main);
+}
+
+.btn-form {
+  background-color: var(--color-secondary);
+  color: var(--text-color-secondary);
 }

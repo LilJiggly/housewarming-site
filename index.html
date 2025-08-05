@@ -4,18 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Housewarming</title>
+    <link rel="icon" type="image/png" href="icons8-house-16.png" />
     <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
     <nav>
       <h3>Housewarming</h3>
       <ul>
-        <li><a href="#intro">Intro</a></li>
-        <li><a href="#timetable">Tijdschema</a></li>
-        <li><a href="#location">Locatie</a></li>
-        <li><a href="#attendance">Aanmelden</a></li>
-        <li><a href="#whishlist">Whishlist</a></li>
-        <li><a href="#faq">Vragen</a></li>
+        <li><a href="#intro" class="btn btn-sc">Intro</a></li>
+        <li><a href="#timetable" class="btn btn-sc">Tijdschema</a></li>
+        <li><a href="#location" class="btn btn-sc">Locatie</a></li>
+        <li><a href="#attendance" class="btn btn-sc">Aanmelden</a></li>
+        <li><a href="#whishlist" class="btn btn-sc">Whishlist</a></li>
+        <li><a href="#faq" class="btn btn-sc">Vragen</a></li>
       </ul>
     </nav>
     <!-- Hero Section -->
@@ -23,48 +24,31 @@
       <div class="container">
         <div class="title-container">
           <h1>Housewarming</h1>
-          <h2>30 augustus!</h2>
+          <h2>Zaterdag 13 September!</h2>
         </div>
-        <a href="#intro">Scroll omlaag</a>
       </div>
     </header>
 
     <section class="intro" id="intro">
       <div class="container max-6">
-        <h2>Introductie</h2>
+        <!-- <h2>Introductie</h2> -->
         <p>
-          Op vrijdag 30 augustus gooi ik de deuren open en jij bent van harte
-          uitgenodigd om een kijkje te komen nemen in mijn nieuwe stekkie! 🎈
+          Op vrijdag 30 augustus gooi ik de deur open en is iederenen van harte
+          welkom om een kijkje te komen nemen! 🎈
         </p>
         <p>
-          Deze website staat boordevol handige informatie zodat je precies weet
+          Deze website staat vol met handige informatie zodat je precies weet
           wat, waar en wanneer. Zo hoef je niet te gokken of je eerder op de dag
           moet komen of later op de avond — er is namelijk een tijdschema waarin
-          je straks zelf een bezoekmoment kunt kiezen. Zo houden we het relaxed
-          én overzichtelijk. 🕒
+          je straks zelf een bezoekmoment kunt kiezen. 🕒
         </p>
-        <p>
-          Verder vind je hier ook alles over hoe je hier komt met het openbaar
-          vervoer en waar je het beste kunt parkeren 🚗🚌
-        </p>
-        <p>
-          Kortom: alle info die je nodig hebt om mijn housewarming soepel én
-          vrolijk te laten verlopen! 🎊
-        </p>
-        <p>Kijk lekker rond, prik een moment, en tot dan! 💛</p>
 
-        <h3>Quick links</h3>
-        <div class="button-containers">
-          <a href="#timetable" class="btn btn-pr">Tijdschema</a>
-          <a href="#location" class="btn btn-pr">Route</a>
-          <a href="#whishlist" class="btn btn-pr">Whishlist</a>
-          <a href="#questions" class="btn btn-pr">Vragen</a>
-        </div>
+        <p>Kijk lekker rond en prik een moment. Tot dan! 💛</p>
       </div>
     </section>
 
     <section class="timetable" id="timetable">
-      <div class="container gap-1 max-6">
+      <div class="container max-6">
         <div class="container">
           <h2>Tijdschema</h2>
           <p>
@@ -103,7 +87,7 @@
     </section>
 
     <section class="location" id="location">
-      <div class="container gap-1 max-6">
+      <div class="container max-8">
         <div class="container">
           <h2>Locatie</h2>
           <p>Meerhoekweg 10A, 1394JJ ten Nederhorst den Berg</p>
@@ -146,7 +130,7 @@
             referrerpolicy="no-referrer-when-downgrade"
           ></iframe>
         </div>
-        <div class="img-grid-container max-6">
+        <div class="img-grid-container">
           <div class="img-container">
             <img src="images/cover.png" alt="" />
           </div>
@@ -158,11 +142,16 @@
     </section>
 
     <section class="attendance" id="attendance">
-      <div class="container max-6 gap-1">
+      <div class="container max-8">
         <h2>Meld je aan!</h2>
-        <form action="your-server-endpoint" method="POST">
+        <p>
+          Tijdsloten zijn flexibel en je mag altijd eerder komen of langer
+          blijven.
+        </p>
+
+        <form action="your-server-endpoint" method="POST" class="max-6">
           <label>
-            Ik ben
+            Naam
             <input
               type="text"
               name="name"
@@ -172,49 +161,45 @@
           </label>
 
           <label>
-            en ik wil in de
-            <select name="timeslot" required>
-              <option value="">Kies hier het moment</option>
-              <option value="ochtend">Ochtend (10:00 - 13:00)</option>
-              <option value="middag">Middag (13:00 - 17:00)</option>
-              <option value="avond">Avond (17:00 - Laat)</option>
-            </select>
-            langskomen.
+            Tijdslot (meerdere keuzes mogelijk)
+            <div class="timeslot-checkboxes">
+              <label class="checkbox-label">
+                <input type="checkbox" name="timeslot" value="ochtend" />
+                <span>Ochtend (10:00 - 13:00)</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="timeslot" value="middag" />
+                <span>Middag (13:00 - 17:00)</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="timeslot" value="avond" />
+                <span>Avond (17:00 - Laat)</span>
+              </label>
+            </div>
           </label>
 
           <label>
-            Ik kom (met)
+            Aantal personen
             <select name="group_size" required>
               <option value="">Aantal personen / alleen</option>
-              <option value="alleen">in me eentje</option>
+              <option value="alleen">Alleen</option>
               <option value="2">2 personen</option>
               <option value="3">3 personen</option>
               <option value="4+">4 of meer</option>
             </select>
-            langs en ik/wij kom(en) met de
           </label>
 
-          <select name="transport" required>
-            <option value="">Vervoersmiddel</option>
-            <option value="ov">Openbaar vervoer</option>
-            <option value="auto">Auto</option>
-            <option value="fiets">Fiets</option>
-            <option value="anders">Iets anders</option>
-          </select>
-
           <div class="button-containers">
-            <button type="submit" class="btn btn-pr">Bevestig</button>
+            <button type="submit" class="btn btn-form">Bevestig</button>
           </div>
         </form>
 
-        <div class="container gap-1 max-6">
+        <div class="container max-8">
           <div class="card-container">
             <div class="card">
               <div class="card-text">
                 <h3>Ochtend</h3>
                 <p>10:00 - 13:00</p>
-                <p>Koffie - Thee - Gebak</p>
-                <p>Intensiteit: Laag</p>
               </div>
               <div class="guests-container">
                 <h4>Aanmeldingen</h4>
@@ -228,8 +213,6 @@
               <div class="card-text">
                 <h3>Middag</h3>
                 <p>13:00 - 17:00</p>
-                <p>Fris - Snacks</p>
-                <p>Intensiteit: Gemiddeld</p>
               </div>
               <div class="guests-container">
                 <h4>Aanmeldingen</h4>
@@ -243,8 +226,6 @@
               <div class="card-text">
                 <h3>Avond</h3>
                 <p>17:00 - laat</p>
-                <p>ALCOHOL - hapjes</p>
-                <p>Intensiteit: Hoog</p>
               </div>
               <div class="guests-container">
                 <h4>Aanmeldingen</h4>
@@ -255,22 +236,21 @@
             </div>
           </div>
 
-          <div class="container">
+          <div class="container max-6">
             <p>
-              Wil je toch nog wisselen van tijdslot dan kan dat tot
-              <strong> 29 augustus 12 uur 's middags.</strong> Je doet dit door
-              opnieuw het formulier in te vullen met de nieuwe gegevens. Let op
-              dat het formulier checkt per naam wat je hebt ingevuld dus zorg
-              dat je precies dezelfde naam invuld als de vorige keer!
+              Wil je toch nog wisselen van tijdslot dan kan dat! Je doet dit
+              door opnieuw het formulier in te vullen met de nieuwe gegevens.
+              Let op dat het formulier checkt per naam wat je hebt ingevuld dus
+              zorg dat je precies dezelfde naam invuld als de vorige keer!
             </p>
           </div>
-          <div class="container">
-            <h3>Aanmelding annuleren</h3>
-            <p>
-              Kun je toch niet komen? Vul je naam in om je aanmelding te
-              annuleren:
-            </p>
-            <form id="cancel-form" class="container">
+          <div class="container max-6">
+            <form id="cancel-form" class="container max-4 gap-1">
+              <h3>Aanmelding annuleren</h3>
+              <p>
+                Kun je toch niet komen? Vul je naam in om je aanmelding te
+                annuleren:
+              </p>
               <label>
                 Mijn naam is
                 <input
@@ -280,7 +260,7 @@
                   required
                 />
               </label>
-              <button type="submit" class="btn btn-pr">
+              <button type="submit" class="btn btn-form">
                 Annuleer aanmelding
               </button>
             </form>
@@ -290,30 +270,43 @@
     </section>
 
     <section class="whishlist" id="whishlist">
-      <div class="container max-6">
+      <div class="container max-8">
         <h2>Whishlist</h2>
-        <p>
+        <p class="max-6">
           Mocht je het leuk vinden om een kadootje mee te nemen dan heb ik
           hieronder een paar do's en dont's opgeschreven.
         </p>
-        <p>(Disclaimer het is absoluut NIET verplicht om iets mee te nemen!)</p>
-        <div class="container">
-          <p>Do</p>
-          <p>Dont</p>
-        </div>
-      </div>
-    </section>
 
-    <section class="questions" id="questions">
-      <div class="container max-6">
-        <h2>Vragen?</h2>
-        <form action="">Vragen?</form>
+        <div class="do-dont-container">
+          <div class="do-dont-card">
+            <h3>DO</h3>
+            <p>Kadobon (Ikea / Bol.com)</p>
+            <p>Boeken (Design, interieur, natuur)</p>
+            <p>Alhocol</p>
+            <p>Platenspeler</p>
+            <p>
+              Boekenhouder (voor het open leggen van een boek of gewoon als
+              steun)
+            </p>
+            <p>Donatie voor een nieuwe vloer</p>
+            <p>Vaas (Merel wil heel graag bloemen)</p>
+          </div>
+          <div class="do-dont-card">
+            <h3>DON'T</h3>
+            <p>Planten</p>
+            <p>Tequila</p>
+          </div>
+        </div>
+        <p>
+          (Disclaimer: Je mag wat meenemen, maar het hoeft natuurlijk niet!)
+        </p>
       </div>
     </section>
 
     <section class="faq" id="faq">
       <div class="container max-6">
         <h2>Veelgestelde vragen</h2>
+        <p>Een paar vragen voor het geval dat.</p>
         <details>
           <summary>Kan ik blijven slapen?</summary>
           <p>
@@ -379,8 +372,7 @@
     </section>
 
     <footer>
-      <p>Adres:</p>
-      <p>Contact:</p>
+      <p>Adres: Meerhoekweg 10A, 1394JJ ten Nederhorst den Berg</p>
     </footer>
 
     <!-- Firebase SDK -->

@@ -55,13 +55,19 @@ document.addEventListener("DOMContentLoaded", function () {
     // Get form data
     const formData = new FormData(form);
     const name = formData.get("name").trim();
-    const timeslot = formData.get("timeslot");
     const groupSize = formData.get("group_size");
-    const transport = formData.get("transport");
+
+    // Get selected timeslots (multiple checkboxes)
+    const selectedTimeslots = Array.from(
+      form.querySelectorAll('input[name="timeslot"]:checked')
+    ).map((checkbox) => checkbox.value);
 
     // Validate required fields
-    if (!name || !timeslot || !groupSize || !transport) {
-      alert("Vul alle velden in!");
+    if (!name || selectedTimeslots.length === 0 || !groupSize) {
+      showNotification(
+        "Vul alle velden in en selecteer minimaal één tijdslot!",
+        "error"
+      );
       return;
     }
 
@@ -69,30 +75,114 @@ document.addEventListener("DOMContentLoaded", function () {
       // Check if user already exists
       const existingRSVP = await checkExistingRSVP(name);
 
-      const rsvpData = {
-        name: name,
-        timeslot: timeslot,
-        groupSize: groupSize,
-        transport: transport,
-        timestamp: new Date(),
-      };
-
+      // Delete existing RSVP if it exists (we'll create new ones for each timeslot)
       if (existingRSVP) {
-        // Update existing RSVP
-        await updateDoc(doc(window.db, "rsvps", existingRSVP.id), rsvpData);
-        alert(`${name}, je aanmelding is bijgewerkt voor de ${timeslot}!`);
-      } else {
-        // Create new RSVP
-        await addDoc(collection(window.db, "rsvps"), rsvpData);
-        alert(`Bedankt ${name}! Je bent aangemeld voor de ${timeslot}.`);
+        await deleteDoc(doc(window.db, "rsvps", existingRSVP.id));
       }
+
+      // Create RSVP for each selected timeslot
+      const promises = selectedTimeslots.map((timeslot) => {
+        const rsvpData = {
+          name: name,
+          timeslot: timeslot,
+          groupSize: groupSize,
+          timestamp: new Date(),
+        };
+        return addDoc(collection(window.db, "rsvps"), rsvpData);
+      });
+
+      await Promise.all(promises);
+
+      // Show success message
+      const timeslotText =
+        selectedTimeslots.length > 1
+          ? `de ${selectedTimeslots.join(", ")}`
+          : `de ${selectedTimeslots[0]}`;
+
+      showNotification(
+        `Gelukt! ${name}, je naam staat nu in het tijdschema hieronder voor ${timeslotText}. Scroll naar beneden om jezelf te zien! 🎉`,
+        "success"
+      );
 
       // Clear form
       form.reset();
     } catch (error) {
       console.error("Error saving RSVP:", error);
-      alert("Er ging iets mis bij het opslaan. Probeer het opnieuw.");
+      showNotification(
+        "Er ging iets mis bij het opslaan. Probeer het opnieuw.",
+        "error"
+      );
     }
+  }
+
+  function showNotification(message, type = "success") {
+    // Remove existing modal if any
+    const existing = document.querySelector(".modal-overlay");
+    if (existing) {
+      existing.remove();
+    }
+
+    // Create modal overlay
+    const overlay = document.createElement("div");
+    overlay.className = "modal-overlay";
+
+    // Create modal popup
+    const popup = document.createElement("div");
+    popup.className = `modal-popup ${type === "error" ? "error" : ""} ${
+      type === "cancel" ? "cancel" : ""
+    }`;
+
+    // Create content
+    const title = document.createElement("h3");
+    if (type === "success") {
+      title.textContent = "Aanmelding gelukt! 🎉";
+    } else if (type === "cancel") {
+      title.textContent = "Aanmelding geannuleerd 😢";
+    } else {
+      title.textContent = "Oops! 😅";
+    }
+
+    const messageP = document.createElement("p");
+    messageP.textContent = message;
+
+    const closeButton = document.createElement("button");
+    closeButton.className = "modal-close";
+    closeButton.textContent = "Sluiten";
+
+    // Add close functionality
+    const closeModal = () => {
+      overlay.classList.add("hide");
+      setTimeout(() => {
+        if (overlay.parentNode) {
+          overlay.remove();
+        }
+      }, 300);
+    };
+
+    closeButton.addEventListener("click", closeModal);
+    overlay.addEventListener("click", (e) => {
+      if (e.target === overlay) {
+        closeModal();
+      }
+    });
+
+    // Escape key to close
+    const handleEscape = (e) => {
+      if (e.key === "Escape") {
+        closeModal();
+        document.removeEventListener("keydown", handleEscape);
+      }
+    };
+    document.addEventListener("keydown", handleEscape);
+
+    // Assemble modal
+    popup.appendChild(title);
+    popup.appendChild(messageP);
+    popup.appendChild(closeButton);
+    overlay.appendChild(popup);
+
+    // Add to page
+    document.body.appendChild(overlay);
   }
 
   async function handleCancelSubmission(e) {
@@ -102,7 +192,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const name = formData.get("cancel_name").trim();
 
     if (!name) {
-      alert("Vul je naam in!");
+      showNotification("Vul je naam in!", "error");
       return;
     }
 
@@ -113,20 +203,25 @@ document.addEventListener("DOMContentLoaded", function () {
       if (existingRSVP) {
         // Delete the RSVP
         await deleteDoc(doc(window.db, "rsvps", existingRSVP.id));
-        alert(
-          `${name}, je aanmelding is geannuleerd. Jammer dat je niet kunt komen!`
+        showNotification(
+          `${name}, je aanmelding is geannuleerd. Jammer dat je niet kunt komen! Je naam is nu verwijderd uit het tijdschema hierboven.`,
+          "cancel"
         );
 
         // Clear the cancel form
         e.target.reset();
       } else {
-        alert(
-          `Geen aanmelding gevonden voor "${name}". Controleer of je naam correct is gespeld. HOOFDLETTER GEVOELIG!`
+        showNotification(
+          `Geen aanmelding gevonden voor "${name}". Controleer of je naam correct is gespeld (let op hoofdletters!)`,
+          "error"
         );
       }
     } catch (error) {
       console.error("Error canceling RSVP:", error);
-      alert("Er ging iets mis bij het annuleren. Probeer het opnieuw.");
+      showNotification(
+        "Er ging iets mis bij het annuleren. Probeer het opnieuw.",
+        "error"
+      );
     }
   }
 
